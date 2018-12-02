@@ -4,6 +4,7 @@ export default class Modal extends Component {
   state = {};
 
   render() {
+    const { onClose } = this.props;
     return (
       <div className="Backdrop">
         <div className="ModalWindow">
@@ -13,7 +14,9 @@ export default class Modal extends Component {
             porro cupiditate voluptatem excepturi maiores aperiam nisi itaque
             minus accusantium id nulla tempora!
           </p>
-          <button type="button">Close</button>
+          <button type="button" onClick={onClose}>
+            Close
+          </button>
         </div>
       </div>
     );

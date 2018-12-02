@@ -9,13 +9,9 @@ const getMenuItemById = id =>
   axios.get(`${BASE_URL}/${id}`).then(response => response.data);
 
 const deleteMenuItem = id =>
-  axios.delete(`${BASE_URL} / ${id}`).then(response => {
-    console.log(response);
-  });
+  axios.delete(`${BASE_URL}/${id}`).then(response => response.status === 200);
 
 const addMenuItem = item =>
-  axios.post(BASE_URL, item).then(response => {
-    console.log(response);
-  });
+  axios.post(BASE_URL, item).then(response => response.data);
 
 export { getAllMenuItems, getMenuItemById, deleteMenuItem, addMenuItem };
