@@ -1,35 +1,14 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import AppHeader from './AppHeader';
 import Modal from './Modal';
 
 export default class App extends Component {
-  containerRef = createRef();
-
   state = { isModalOpen: false };
 
-  componentDidMount() {
-    window.addEventListener('click', this.handleWindowClick);
+  constructor() {
+    super();
+    this.closeModal = this.closeModal.bind(this);
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { isModalOpen } = this.state;
-    return nextState.isModalOpen !== isModalOpen;
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('click', this.handleWindowClick);
-  }
-
-  handleWindowClick = e => {
-    const { isModalOpen } = this.state;
-
-    const isTargetInsideContainer = this.containerRef.current.contains(
-      e.target,
-    );
-    if (!isTargetInsideContainer && isModalOpen) {
-      this.closeModal();
-    }
-  };
 
   openModal = () => {
     this.setState({ isModalOpen: true });
@@ -49,7 +28,17 @@ export default class App extends Component {
           Open Modal
         </button>
         {isModalOpen && (
-          <Modal onClose={this.closeModal()} ref={this.containerRef} />
+          <Modal onClose={this.closeModal()}>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
+              illum repellendus perspiciatis animi fugiat, distinctio incidunt
+              eligendi porro cupiditate voluptatem excepturi maiores aperiam
+              nisi itaque minus accusantium id nulla tempora!
+            </p>
+            <button type="button" onClick={this.onClose()}>
+              Close
+            </button>
+          </Modal>
         )}
       </div>
     );
