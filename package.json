@@ -15,7 +15,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "format": "eslint src/**/*.js --fix",
-    "server": "json-server --watch server/db.json"
+    "server": "json-server --watch server/order-history.json"
   },
   "eslintConfig": {
     "extends": "react-app"

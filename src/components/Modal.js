@@ -1,22 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 
 export default class Modal extends Component {
-  state = {};
+  backdropRef = createRef();
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { isModalOpen } = this.state;
+    return nextState.isModalOpen !== isModalOpen;
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code !== 'Escape') return;
+    this.props.onClose();
+  };
+
+  handleBackdropClick = e => {
+    if (e.target !== this.backdropRef.current) return;
+    this.props.onClose();
+  };
 
   render() {
-    const { onClose } = this.props;
     return (
-      <div className="Backdrop">
-        <div className="ModalWindow">
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non illum
-            repellendus perspiciatis animi fugiat, distinctio incidunt eligendi
-            porro cupiditate voluptatem excepturi maiores aperiam nisi itaque
-            minus accusantium id nulla tempora!
-          </p>
-          <button type="button" onClick={onClose}>
-            Close
-          </button>
+      <div className="Backdrop" onClick={this.handleBackdropClick}>
+        <div className="ModalWindow" ref={this.containerRef}>
+          {this.props.children}
         </div>
       </div>
     );
