@@ -9,24 +9,14 @@ export default class OrderForm extends Component {
     rating: '',
   };
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-
-    this.setState({ [name]: value });
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const { id, date, price, address, rating } = this.state;
-    this.props.handleAddMenuItem({ id, date, price, address, rating });
-    this.props.onSubmit({
-      id: '',
-      date: '',
-      price: '',
-      address: '',
-      rating: '',
-    });
-
+    this.props.onHandleAddItem(id, date, price, address, rating);
     this.setState({ id: '', date: '', price: '', address: '', rating: '' });
   };
 
@@ -70,7 +60,9 @@ export default class OrderForm extends Component {
           onChange={this.handleChange}
           autoComplete="off"
         />
-        <button type="button">Добавить заметку</button>
+        <button type="button" onClick={this.handleSubmit}>
+          Добавить заметку
+        </button>
       </form>
     );
   }

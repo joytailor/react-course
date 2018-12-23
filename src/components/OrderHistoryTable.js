@@ -8,19 +8,64 @@ import ErrorNotification from './ErrorNotification';
 export default class OrderHistoryTable extends Component {
   state = {
     orderHistoryItems: [],
-    isModalOpen: false,
-    currentItemInfo: { id: '', date: '', price: '', address: '', rating: '' },
     isLoading: false,
+    isModalOpen: false,
+    currentItemInfo: {},
     errorStatus: null,
   };
 
-  constructor() {
-    super();
-    this.closeModal = this.closeModal.bind(this);
-    this.openModal = this.openModal.bind(this);
+  componentDidMount() {
+    this.fetchHistoryTable();
   }
 
-  componentDidMount() {}
+  handleAddItem = (id, date, price, address, rating) => {
+    if (
+      id === '' ||
+      date === '' ||
+      price === '' ||
+      address === '' ||
+      rating === ''
+    )
+      return;
+    const item = { id, date, price, address, rating };
+    API.addItem(item).then(isOk => {
+      if (!isOk) return;
+      this.setState(state => ({
+        orderHistoryItems: [...state.orderHistoryItems, item],
+      }));
+    });
+  };
+
+  handleDeleteItem = id => {
+    API.deleteItem(id).then(isOk => {
+      if (!isOk) return;
+      this.setState(state => ({
+        orderHistoryItems: state.orderHistoryItems.filter(
+          item => item.id !== id,
+        ),
+      }));
+    });
+  };
+
+  handleShowMoreInfo = id => {
+    // const currentItem = {
+    //   id: '',
+    //   date: '',
+    //   price: '',
+    //   address: '',
+    //   rating: '',
+    // };
+    API.getItemById(id).then(item => {
+      console.log(item);
+      this.setState({ currentItemInfo: item });
+      this.openModal();
+      // currentItem.id : item.id,
+      // currentItem.date = item.date;
+      // currentItem.price = item.price;
+      // currentItem.address = item.address;
+      // currentItem.rating = item.rating;
+    });
+  };
 
   openModal = () => {
     this.setState({ isModalOpen: true });
@@ -30,48 +75,13 @@ export default class OrderHistoryTable extends Component {
     this.setState({ isModalOpen: false });
   };
 
-  handleDeleteItem = id => {
-    API.deleteMenuItem(id).then(isOk => {
-      if (!isOk) return;
-      this.setState(state => ({
-        menu: state.orderHistoryItems.filter(item => item.id !== id),
-      }));
-    });
-  };
-
-  handleShowMoreInfo = id => {
-    const { currentItemInfo } = this.state.currentItemInfo;
-    API.getMenuItemById(id).then(item => {
-      currentItemInfo.id = item.id;
-      currentItemInfo.date = item.date;
-      currentItemInfo.price = item.price;
-      currentItemInfo.address = item.address;
-      currentItemInfo.rating = item.rating;
-    });
-    this.openModal();
-  };
-
-  handleAddMenuItem = ({ id, date, price, address, rating }) => {
-    const item = {
-      id: { id },
-      date: { date },
-      price: { price },
-      address: { address },
-      rating: { rating },
-    };
-    API.addMenuItem(item).then(isOk => {
-      if (!isOk) return;
-      this.setState(state => ({
-        orderHistoryItems: [...state.orderHistoryItems, item],
-      }));
-    });
-  };
-
   fetchHistoryTable() {
     this.setState({ isLoading: true });
     API.getAllItems()
       .then(orderHistoryItems => {
-        this.setState({ orderHistoryItems });
+        console.log(orderHistoryItems);
+        this.setState({ orderHistoryItems, isLoading: false });
+        console.log(this.state.orderHistoryItems);
       })
       .catch(error =>
         this.setState({ errorStatus: { error }, isLoading: false }),
@@ -88,44 +98,60 @@ export default class OrderHistoryTable extends Component {
     } = this.state;
     return (
       <div className="order-history-table">
-        <OrderForm />
         {isModalOpen && (
-          <Modal onClose={this.closeModal()}>
+          <Modal isModalOpen={isModalOpen} onClose={this.closeModal}>
             <ul className="modal_list">
               <li>ID:{currentItemInfo.id}</li>
               <li>Date:{currentItemInfo.date}</li>
               <li>Price:{currentItemInfo.price}</li>
-              <li>Adress:{currentItemInfo.adress}</li>
+              <li>Address:{currentItemInfo.address}</li>
               <li>Rating:{currentItemInfo.rating}</li>
             </ul>
-            <button type="button" onClick={this.onClose()}>
+            <button type="button" onClick={() => this.closeModal()}>
               Close
             </button>
           </Modal>
         )}
+        <OrderForm onHandleAddItem={this.handleAddItem} />
         {errorStatus && <ErrorNotification />}
         {isLoading ? (
           <Spinner />
         ) : (
           <table>
-            <th>Date</th>
-            <th>Price</th>
-            <th>Delivery Address</th>
-            <th>Rating</th>
-            {orderHistoryItems.map(item => (
-              <tr key={item.id}>
-                <td>{item.date}</td>
-                <td>{item.price}</td>
-                <td>{item.address}</td>
-                <td>{item.rating}</td>
-                <button type="button" onClick={this.handleDeleteItem}>
-                  Delete
-                </button>
-                <button type="button" onClick={this.handleShowMoreInfo}>
-                  Show more
-                </button>
+            <tbody>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Delivery Address</th>
+                <th>Rating</th>
               </tr>
-            ))}
+              {orderHistoryItems.map(item => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.date}</td>
+                  <td>{item.price}</td>
+                  <td>{item.address}</td>
+                  <td>{item.rating}</td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => this.handleDeleteItem(item.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => this.handleShowMoreInfo(item.id)}
+                    >
+                      Show more
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         )}
       </div>
