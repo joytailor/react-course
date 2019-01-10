@@ -3,7 +3,6 @@ import * as API from '../services/menu/api';
 
 export default class PostNewMenuItemPage extends Component {
   state = {
-    id: '',
     name: '',
     description: '',
     image: '',
@@ -34,15 +33,27 @@ export default class PostNewMenuItemPage extends Component {
   };
 
   handleSubmit = e => {
-    console.log(this.state);
+    const {
+      name,
+      description,
+      image,
+      category,
+      price,
+      ingridients,
+    } = this.state;
     e.preventDefault();
-    this.setState({ id: `${Math.random()}` });
-    const { id } = this.state;
-    console.log(id);
+    if (
+      name === '' ||
+      description === '' ||
+      image === '' ||
+      category === '' ||
+      price === '' ||
+      ingridients === []
+    )
+      return;
     const newPost = this.state;
-    API.addMenuItem(JSON.stringify(newPost));
+    API.addMenuItem(newPost);
     this.setState({
-      id: '',
       name: '',
       description: '',
       image: '',
@@ -52,6 +63,10 @@ export default class PostNewMenuItemPage extends Component {
       newIngridient: '',
     });
     console.log(this.state);
+    this.props.history.push({
+      pathname: '/menu',
+      search: '?category=main%20course',
+    });
   };
 
   render() {

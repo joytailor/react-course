@@ -39,7 +39,13 @@
       "image": "https://s1.eda.ru/StaticContent/Photos/121114213720/151024152626/p_O.png",
       "price": 100,
       "category": "soup",
-      "ingredients": ["Тыква", "Петрушка", "Сливки", "Бренди", "Куриный бульон"]
+      "ingredients": [
+        "Тыква",
+        "Петрушка",
+        "Сливки",
+        "Бренди",
+        "Куриный бульон"
+      ]
     },
     {
       "id": 4,
@@ -123,9 +129,21 @@
     }
   ],
   "categories": [
-    { "id": 0, "name": "soup" },
-    { "id": 1, "name": "dessert" },
-    { "id": 2, "name": "salad" },
-    { "id": 3, "name": "main course" }
+    {
+      "id": 0,
+      "name": "soup"
+    },
+    {
+      "id": 1,
+      "name": "dessert"
+    },
+    {
+      "id": 2,
+      "name": "salad"
+    },
+    {
+      "id": 3,
+      "name": "main course"
+    }
   ]
 }

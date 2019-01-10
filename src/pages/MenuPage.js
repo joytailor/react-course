@@ -1,38 +1,45 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
-import MenuGrid from '../components/MenuGrid';
+import MenuGrid from '../modules/menu/MenuGrid';
+import Loading from '../components/Loading';
 import * as API from '../services/menu/api';
-import CategorySelector from '../components/CategorySelector';
+import CategorySelector from '../modules/menu/CategorySelector';
+import ErrorNotification from '../components/ErrorNotification';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
 
 export default class MenuPage extends Component {
-  state = { menu: [], categories: [] };
+  state = { menu: [], categories: [], isLoading: false, error: null };
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.setState({ isLoading: true, error: null });
+    try {
+      await API.getCategories().then(items => {
+        this.setState({ categories: items, isLoading: false });
+      });
+
+      if (this.props.location.search === '') {
+        API.getAllMenuItems().then(menu => {
+          this.setState({ menu });
+        });
+        return;
+      }
+    } catch (err) {
+      this.setState({ error: err });
+    }
+
     this.handleDefaultCategory();
-    API.getAllMenuItems().then(menu => {
-      this.setState({ menu });
-    });
-    API.getCategories().then(items => {
-      this.setState({ categories: items });
-    });
   }
 
   componentDidUpdate(prevProps) {
     const prevCategory = getCategoryFromProps(prevProps);
     const nextCategory = getCategoryFromProps(this.props);
 
-    console.log(prevCategory);
-    console.log(nextCategory);
-
     if (prevCategory === nextCategory) return;
 
-    API.getMenuItemsWithCategory(nextCategory).then(menu => {
-      this.setState({ menu });
-    });
+    this.handleMenuItemsWithCategories(nextCategory);
   }
 
   handleCategoryChange = category => {
@@ -42,27 +49,33 @@ export default class MenuPage extends Component {
     });
   };
 
+  handleMenuItemsWithCategories = category => {
+    API.getMenuItemsWithCategory(category).then(menu => {
+      this.setState({ menu });
+    });
+  };
+
   handleDefaultCategory() {
     const category = getCategoryFromProps(this.props);
 
     if (!category) {
       this.props.history.replace({
         pathname: this.props.location.pathname,
-        search: 'category=main%20course',
+        search: '?category=main%20course',
       });
     }
 
-    API.getMenuItemsWithCategory(category).then(menu => {
-      this.setState({ menu });
-    });
+    this.handleMenuItemsWithCategories(category);
   }
 
   render() {
-    const { menu, categories } = this.state;
+    const { menu, categories, isLoading, error } = this.state;
     const { match } = this.props;
     const currentCategory = getCategoryFromProps(this.props);
     return (
       <div>
+        {error !== null && <ErrorNotification err={error} />}
+        {isLoading && <Loading />}
         <Link to={`${match.url}/add`}>Добавить элемент меню</Link>
         <CategorySelector
           options={categories.map(el => el.name)}
