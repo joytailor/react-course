@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000/order-history';
+const BASE_URL = 'http://localhost:3000/order-history-items';
 
 const getAllItems = () => axios.get(BASE_URL).then(response => response.data);
 

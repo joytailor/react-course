@@ -3,6 +3,10 @@ import React, { Component, createRef } from 'react';
 export default class Modal extends Component {
   backdropRef = createRef();
 
+  state = {
+    isModalOpen: this.props.isModalOpen,
+  };
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -28,10 +32,12 @@ export default class Modal extends Component {
 
   render() {
     return (
-      <div className="Backdrop" onClick={this.handleBackdropClick}>
-        <div className="ModalWindow" ref={this.containerRef}>
-          {this.props.children}
-        </div>
+      <div
+        className="Backdrop"
+        ref={this.backdropRef}
+        onClick={this.handleBackdropClick}
+      >
+        <div className="ModalWindow">{this.props.children}</div>
       </div>
     );
   }
