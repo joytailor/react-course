@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "module-alias": "^2.1.0",
     "query-string": "^6.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -21,7 +22,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "format": "eslint src/**/*.js --fix",
-    "server": "json-server --watch server/menu.json"
+    "server": "json-server --watch server/db.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,6 +33,13 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "_moduleAliases": {
+    "@root"      : ".", 
+    "@modules"      : "src/modules",
+    "@components" : "src/components",
+    "@configs" : "src/configs",
+    "@pages" : "src/pages"
+  },
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",

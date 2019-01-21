@@ -1,6 +1,8 @@
 export default Object.freeze({
   AUTH: '/auth',
   MENU: '/menu',
+  MENU_ADD: '/menu/add',
+  MENU_ITEM: '/menu:id',
   ORDER_HISTORY: '/order-history',
   CART: '/cart',
   CHECKOUT: '/checkout',
@@ -9,4 +11,5 @@ export default Object.freeze({
   CONTACT: '/contact',
   DELIVERY: '/delivery',
   FAVOURITES: '/favourites',
+  ACCOUNT: '/account',
 });
