@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import routes from '../../configs/routes';
+import routes from '../../../configs/routes';
 
 const AppNav = () => (
   <ul className="nav">

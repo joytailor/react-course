@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Modal from '../../components/Modal';
-import OrderForm from './OrderForm';
-import Spinner from '../../components/Loading';
-import ErrorNotification from '../../components/ErrorNotification';
+import Modal from '../../Modal';
+import Spinner from '../../Loading';
+import ErrorNotification from '../../ErrorNotification';
 
 const OrderHistoryGrid = ({
   orderHistoryItems,
@@ -12,13 +11,13 @@ const OrderHistoryGrid = ({
   isLoading,
   errorStatus,
   closeModal,
-  handleAddItem,
   handleDeleteItem,
   handleShowMoreInfo,
 }) => (
   <div className="order-history-table">
+    {errorStatus !== null && <ErrorNotification err={errorStatus} />}
     {isModalOpen && (
-      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+      <Modal isModalOpen={isModalOpen} onClose={() => closeModal()}>
         <ul className="modal_list">
           <li>ID:{currentItemInfo.id}</li>
           <li>Date:{currentItemInfo.date}</li>
@@ -26,12 +25,11 @@ const OrderHistoryGrid = ({
           <li>Address:{currentItemInfo.address}</li>
           <li>Rating:{currentItemInfo.rating}</li>
         </ul>
-        <button type="button" onClick={closeModal}>
+        <button type="button" onClick={() => closeModal()}>
           Close
         </button>
       </Modal>
     )}
-    <OrderForm onHandleAddItem={handleAddItem} />
     {errorStatus && <ErrorNotification />}
     {isLoading ? (
       <Spinner />
@@ -53,12 +51,15 @@ const OrderHistoryGrid = ({
               <td>{item.address}</td>
               <td>{item.rating}</td>
               <td>
-                <button type="button" onClick={handleDeleteItem(item.id)}>
+                <button type="button" onClick={() => handleDeleteItem(item.id)}>
                   Delete
                 </button>
               </td>
               <td>
-                <button type="button" onClick={handleShowMoreInfo(item.id)}>
+                <button
+                  type="button"
+                  onClick={() => handleShowMoreInfo(item.id)}
+                >
                   Show more
                 </button>
               </td>

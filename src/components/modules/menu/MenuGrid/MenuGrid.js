@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuGridItem from './MenuGridItem';
+import MenuGridItem from '../MenuGridItem';
 
 const MenuGrid = ({ items }) => (
   <ul>

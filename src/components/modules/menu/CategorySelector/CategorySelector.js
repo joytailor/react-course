@@ -6,7 +6,7 @@ const styles = {
   },
 };
 
-const CategorySelector = ({ options, value, onChange }) => (
+const CategorySelector = ({ options, value, onChange = () => null }) => (
   <select
     style={styles.select}
     value={value}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as API from '../services/order-history/api';
 
-import OrderHistoryGrid from '../modules/order-history/OrderHistoryGrid';
+import OrderHistoryGrid from '../components/modules/order-history/OrderHistoryGrid';
 
 export default class OrderHistoryTable extends Component {
   state = {
@@ -15,35 +15,6 @@ export default class OrderHistoryTable extends Component {
   componentDidMount() {
     this.fetchHistoryTable();
   }
-
-  handleAddItem = (id, date, price, address, rating) => {
-    if (
-      id === '' ||
-      date === '' ||
-      price === '' ||
-      address === '' ||
-      rating === ''
-    )
-      return;
-    const item = { id, date, price, address, rating };
-    API.addItem(item).then(isOk => {
-      if (!isOk) return;
-      this.setState(state => ({
-        orderHistoryItems: [...state.orderHistoryItems, item],
-      }));
-    });
-  };
-
-  handleDeleteItem = id => {
-    API.deleteItem(id).then(isOk => {
-      if (!isOk) return;
-      this.setState(state => ({
-        orderHistoryItems: state.orderHistoryItems.filter(
-          item => item.id !== id,
-        ),
-      }));
-    });
-  };
 
   handleShowMoreInfo = id => {
     API.getItemById(id).then(item => {
@@ -90,8 +61,6 @@ export default class OrderHistoryTable extends Component {
         isLoading={isLoading}
         errorStatus={errorStatus}
         closeModal={this.closeModal}
-        handleAddItem={this.handleAddItem}
-        handleDeleteItem={this.handleDeleteItem}
         handleShowMoreInfo={this.handleShowMoreInfo}
       />
     );

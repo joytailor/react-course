@@ -5,7 +5,6 @@ import routes from '../configs/routes';
 
 import AppHeader from './AppHeader';
 import MenuPage from '../pages/MenuPage';
-import PostNewMenuItemPage from '../pages/PostNewMenuItemPage';
 import MenuItemPage from '../pages/MenuItemPage';
 import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage';
@@ -21,7 +20,6 @@ export default class App extends Component {
         <AppHeader />
         <Switch>
           <Route exact path={routes.MENU} component={MenuPage} />
-          <Route path={routes.MENU_ADD} component={PostNewMenuItemPage} />
           <Route path={routes.MENU_ITEM} component={MenuItemPage} />
           <Route path={routes.ABOUT} component={AboutPage} />
           <Route path={routes.CONTACT} component={ContactPage} />

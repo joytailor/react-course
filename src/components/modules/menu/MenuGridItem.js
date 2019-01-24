@@ -5,7 +5,7 @@ import slug from 'slug';
 const MenuGridItem = ({ id, name, image, price, match, location }) => (
   <Link
     to={{
-      pathname: `${match.path}/${slug(name)}/${id}`,
+      pathname: `${match.url}/${slug(name)}/${id}`,
       state: { from: location },
     }}
   >
