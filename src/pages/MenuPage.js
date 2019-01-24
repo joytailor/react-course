@@ -4,26 +4,21 @@ import { connect } from 'react-redux';
 
 import MenuGrid from '../components/modules/menu/MenuGrid';
 import Loading from '../components/Loading';
-// import * as API from '../services/menu/api';
 import CategorySelector from '../components/modules/menu/CategorySelector';
 import ErrorNotification from '../components/ErrorNotification';
 
-import {
-  // menuActions,
-  menuSelectors,
-  menuOperations,
-} from '../components/features/menu';
+import { menuSelectors, menuOperations } from '../components/features/menu';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
 
 class MenuPage extends Component {
   componentDidMount() {
-    this.props.fetchCategories();
+    this.props.fetchCategoriesSuccess();
     this.handleDefaultCategory();
     const category = getCategoryFromProps(this.props);
     if (!category) {
-      this.props.fetchItems();
+      this.props.fetchMenuItems();
     }
   }
 
@@ -89,9 +84,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchItems: menuOperations.fetchMenuItems,
+  fetchMenuItems: menuOperations.fetchMenuItems,
   fetchItemsWithCategory: menuOperations.fetchMenuItemsWithCategory,
-  fetchCategories: menuOperations.fetchCategoriesSuccess,
+  fetchCategoriesSuccess: menuOperations.fetchCategoriesSuccess,
 };
 
 export default connect(
