@@ -17,7 +17,7 @@ const fetchMenuItemByID = id => async dispatch => {
 
   try {
     const response = await API.getMenuItemById(id);
-    dispatch(actions.fetchMenuItemById(response.data));
+    dispatch(actions.fetchMenuItemById(response));
   } catch (error) {
     dispatch(actions.fetchError(error.message));
   }

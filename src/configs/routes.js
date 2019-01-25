@@ -2,7 +2,7 @@ export default Object.freeze({
   AUTH: '/auth',
   MENU: '/menu',
   MENU_ADD: '/menu/add',
-  MENU_ITEM: '/menu:id',
+  MENU_ITEM: '/menu/:name/:id',
   ORDER_HISTORY: '/order-history',
   CART: '/cart',
   CHECKOUT: '/checkout',
