@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import slug from 'slug';
+// import slug from 'slug';
 
 const MenuGridItem = ({ id, name, image, price, match, location }) => (
   <Link
     to={{
-      pathname: `${match.url}/${slug(name)}/${id}`,
+      pathname: `${match.url}/${id}`,
       state: { from: location },
     }}
   >

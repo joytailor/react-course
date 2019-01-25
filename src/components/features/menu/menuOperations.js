@@ -6,9 +6,8 @@ const fetchMenuItems = () => async dispatch => {
 
   try {
     const response = await API.getAllMenuItems();
-    dispatch(actions.fetchMenuItems(response.data));
+    dispatch(actions.fetchMenuItemsSuccess(response));
   } catch (error) {
-    console.log(error);
     dispatch(actions.fetchError(error.message));
   }
 };
@@ -20,7 +19,6 @@ const fetchMenuItemByID = id => async dispatch => {
     const response = await API.getMenuItemById(id);
     dispatch(actions.fetchMenuItemById(response.data));
   } catch (error) {
-    console.log(error);
     dispatch(actions.fetchError(error.message));
   }
 };
@@ -30,9 +28,8 @@ const fetchCategoriesSuccess = () => async dispatch => {
 
   try {
     const response = await API.getCategories();
-    dispatch(actions.fetchCategories(response.data));
+    dispatch(actions.fetchCategoriesSuccess(response));
   } catch (error) {
-    console.log(error);
     dispatch(actions.fetchError(error.message));
   }
 };
@@ -41,9 +38,8 @@ const fetchMenuItemsWithCategory = category => async dispatch => {
   dispatch(actions.fetchRequest());
   try {
     const response = await API.getMenuItemsWithCategory(category);
-    dispatch(actions.fetchMenuItems(response.data));
+    dispatch(actions.fetchMenuItemsSuccess(response));
   } catch (error) {
-    console.log(error);
     dispatch(actions.fetchError(error.message));
   }
 };
@@ -53,7 +49,7 @@ const addMenuItem = item => async dispatch => {
 
   try {
     await API.addMenuItem(item).then(({ data }) =>
-      dispatch(actions.addNoteSuccess(data)),
+      dispatch(actions.addMenuItemSuccess(data)),
     );
   } catch (error) {
     dispatch(actions.fetchError(error.message));

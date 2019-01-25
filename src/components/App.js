@@ -27,7 +27,7 @@ export default class App extends Component {
           <Route path={routes.ACCOUNT} component={AccountPage} />
           <Route path={routes.ORDER_HISTORY} component={OrderHistoryPage} />
           <Route path={routes.PLANNER} component={MealPlannerPage} />
-          <Redirect to="/" />
+          <Redirect to="/account" />
         </Switch>
       </div>
     );

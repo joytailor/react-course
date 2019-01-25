@@ -22,13 +22,14 @@ class MenuPage extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const prevCategory = getCategoryFromProps(prevProps);
-    const nextCategory = getCategoryFromProps(this.props);
+  componentDidUpdate(prevState) {
+    const prevCategory = getCategoryFromProps(prevState);
+    const nextCategory = this.props.currentCategory;
 
+    if (!nextCategory) return;
     if (prevCategory === nextCategory) return;
-
-    this.handleMenuItemsWithCategories(nextCategory);
+    this.handleCategoryChange(nextCategory);
+    this.props.fetchItemsWithCategory(nextCategory);
   }
 
   handleCategoryChange = category => {
@@ -37,12 +38,6 @@ class MenuPage extends Component {
       search: `category=${category}`,
     });
   };
-
-  // handleMenuItemsWithCategories = category => {
-  //   API.getMenuItemsWithCategory(category).then(menu => {
-  //     this.setState({ menu });
-  //   });
-  // };
 
   handleDefaultCategory() {
     const category = getCategoryFromProps(this.props);
@@ -54,22 +49,17 @@ class MenuPage extends Component {
       });
     }
 
-    this.props.fetchItemsWithCategory();
+    this.props.fetchItemsWithCategory(category);
   }
 
   render() {
-    const { items, categories, isLoading, errorStatus } = this.props;
+    const { items, isLoading, errorStatus } = this.props;
     const { match } = this.props;
-    const currentCategory = getCategoryFromProps(this.props);
     return (
       <div>
         {errorStatus !== null && <ErrorNotification err={errorStatus} />}
         {isLoading && <Loading />}
-        <CategorySelector
-          options={categories.map(el => el.name)}
-          value={currentCategory}
-          onChange={this.handleCategoryChange}
-        />
+        <CategorySelector />
         <MenuGrid items={items} match={match} />
       </div>
     );
@@ -81,6 +71,7 @@ const mapStateToProps = state => ({
   categories: menuSelectors.getCategories(state),
   isLoading: menuSelectors.getIsLoading(state),
   errorStatus: menuSelectors.getError(state),
+  currentCategory: menuSelectors.getCurrentCategory(state),
 });
 
 const mapDispatchToProps = {

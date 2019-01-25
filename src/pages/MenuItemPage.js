@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as API from '../services/menu/api';
+import MenuItem from '../components/modules/menu/MenuItem';
 
 export default class MenuItemPage extends Component {
   state = {
@@ -38,22 +39,15 @@ export default class MenuItemPage extends Component {
   render() {
     const { id, name, description, image, price, ingredients } = this.state;
     return (
-      <article key={id}>
-        <button type="button" onClick={this.handleGoBack}>
-          Вернуться к меню
-        </button>
-        <div>
-          <img src={image} alt={name} width="300px" height="300px" />
-          <h1>{name}</h1>
-          <p>Цена:{price} денег</p>
-          <p>{description}</p>
-        </div>
-        <ul>
-          {ingredients.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </article>
+      <MenuItem
+        id={id}
+        name={name}
+        description={description}
+        image={image}
+        price={price}
+        ingredients={ingredients}
+        onGoBack={() => this.handleGoBack()}
+      />
     );
   }
 }
