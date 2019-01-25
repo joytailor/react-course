@@ -12,9 +12,10 @@ const MenuItem = ({ item, onGoBack }) => (
       <p>{item.description}</p>
     </div>
     <ul>
-      {item.ingredients.map(ingredient => (
-        <li key={ingredient}>{ingredient}</li>
-      ))}
+      {item.ingredients &&
+        item.ingredients.map(ingridient => (
+          <li key={ingridient}>{ingridient}</li>
+        ))}
     </ul>
   </article>
 );
