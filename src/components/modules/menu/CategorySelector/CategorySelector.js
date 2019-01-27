@@ -6,17 +6,18 @@ const styles = {
   },
 };
 
-const CategorySelector = ({ options, value, onChange = () => null }) => (
+const CategorySelector = ({ options, value, onChange }) => (
   <select
     style={styles.select}
     value={value}
     onChange={e => onChange(e.target.value)}
   >
-    {options.map(o => (
-      <option key={o.id} value={o.name}>
-        {o.name}
-      </option>
-    ))}
+    {options &&
+      options.map(o => (
+        <option key={o.id} value={o.name}>
+          {o.name}
+        </option>
+      ))}
   </select>
 );
 

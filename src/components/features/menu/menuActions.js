@@ -5,11 +5,6 @@ const addMenuItemSuccess = id => ({
   payload: id,
 });
 
-const changeFilter = category => ({
-  type: types.CHANGE_CATEGORY,
-  payload: category,
-});
-
 const fetchRequest = () => ({
   type: types.FETCH_REQUEST,
 });
@@ -36,7 +31,6 @@ const fetchCategoriesSuccess = categories => ({
 
 export default {
   addMenuItemSuccess,
-  changeFilter,
   fetchRequest,
   fetchMenuItemsSuccess,
   fetchError,

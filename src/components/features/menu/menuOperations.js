@@ -23,7 +23,7 @@ const fetchMenuItemByID = id => async dispatch => {
   }
 };
 
-const fetchCategoriesSuccess = () => async dispatch => {
+const fetchCategories = () => async dispatch => {
   dispatch(actions.fetchRequest());
 
   try {
@@ -60,6 +60,6 @@ export default {
   fetchMenuItems,
   addMenuItem,
   fetchMenuItemByID,
-  fetchCategoriesSuccess,
+  fetchCategories,
   fetchMenuItemsWithCategory,
 };

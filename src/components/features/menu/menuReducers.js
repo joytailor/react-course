@@ -24,16 +24,6 @@ function categoriesReducer(state = [], { type, payload }) {
   }
 }
 
-function filterReducer(state = '', { type, payload }) {
-  switch (type) {
-    case types.CHANGE_CATEGORY:
-      return payload;
-
-    default:
-      return state;
-  }
-}
-
 function currentItemReducer(state = '', { type, payload }) {
   switch (type) {
     case types.FETCH_ITEM_WITH_ID:
@@ -77,5 +67,4 @@ export default combineReducers({
   currentItem: currentItemReducer,
   loading: loadingReducer,
   error: errorReducer,
-  filter: filterReducer,
 });

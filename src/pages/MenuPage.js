@@ -14,21 +14,16 @@ const getCategoryFromProps = props =>
 
 class MenuPage extends Component {
   componentDidMount() {
-    this.props.fetchCategoriesSuccess();
+    this.props.fetchCategories();
     this.handleDefaultCategory();
-    const category = getCategoryFromProps(this.props);
-    if (!category) {
-      this.props.fetchMenuItems();
-    }
   }
 
   componentDidUpdate(prevState) {
     const prevCategory = getCategoryFromProps(prevState);
-    const nextCategory = this.props.currentCategory;
+    const nextCategory = getCategoryFromProps(this.props);
 
     if (!nextCategory) return;
     if (prevCategory === nextCategory) return;
-    this.handleCategoryChange(nextCategory);
     this.props.fetchItemsWithCategory(nextCategory);
   }
 
@@ -59,7 +54,7 @@ class MenuPage extends Component {
       <div>
         {errorStatus !== null && <ErrorNotification err={errorStatus} />}
         {isLoading && <Loading />}
-        <CategorySelector />
+        <CategorySelector onChange={this.handleCategoryChange} />
         <MenuGrid items={items} match={match} />
       </div>
     );
@@ -67,17 +62,16 @@ class MenuPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  items: menuSelectors.getMenuItemsWithCategory(state),
+  items: menuSelectors.getAllMenuItems(state),
   categories: menuSelectors.getCategories(state),
   isLoading: menuSelectors.getIsLoading(state),
   errorStatus: menuSelectors.getError(state),
-  currentCategory: menuSelectors.getCurrentCategory(state),
 });
 
 const mapDispatchToProps = {
   fetchMenuItems: menuOperations.fetchMenuItems,
   fetchItemsWithCategory: menuOperations.fetchMenuItemsWithCategory,
-  fetchCategoriesSuccess: menuOperations.fetchCategoriesSuccess,
+  fetchCategories: menuOperations.fetchCategories,
 };
 
 export default connect(

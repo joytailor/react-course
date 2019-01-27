@@ -27,7 +27,7 @@ class MenuItemPage extends Component {
 
   render() {
     const { match } = this.props;
-    return <MenuItem match={match} onGoBack={() => this.handleGoBack()} />;
+    return <MenuItem match={match} onGoBack={this.handleGoBack} />;
   }
 }
 
