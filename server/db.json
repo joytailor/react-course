@@ -148,27 +148,6 @@
   ],
   "order-history-items": [
     {
-      "id": 2,
-      "date": "10/1/2018",
-      "price": "710.00",
-      "address": "331 Mills Mountains",
-      "rating": 9
-    },
-    {
-      "id": 3,
-      "date": "5/12/2018",
-      "price": "567.00",
-      "address": "47330 Boyle Road",
-      "rating": 8
-    },
-    {
-      "id": 4,
-      "date": "9/22/2018",
-      "price": "703.00",
-      "address": "0700 Furman Trail",
-      "rating": 6
-    },
-    {
       "id": 5,
       "date": "6/14/2018",
       "price": "887.00",

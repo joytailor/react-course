@@ -11,11 +11,10 @@ const OrderHistoryGrid = ({
   isLoading,
   errorStatus,
   closeModal,
-  handleDeleteItem,
   handleShowMoreInfo,
 }) => (
   <div className="order-history-table">
-    {errorStatus !== null && <ErrorNotification err={errorStatus} />}
+    {errorStatus !== null && <ErrorNotification err={errorStatus.message} />}
     {isModalOpen && (
       <Modal isModalOpen={isModalOpen} onClose={() => closeModal()}>
         <ul className="modal_list">
@@ -50,11 +49,6 @@ const OrderHistoryGrid = ({
               <td>{item.price}</td>
               <td>{item.address}</td>
               <td>{item.rating}</td>
-              <td>
-                <button type="button" onClick={() => handleDeleteItem(item.id)}>
-                  Delete
-                </button>
-              </td>
               <td>
                 <button
                   type="button"
