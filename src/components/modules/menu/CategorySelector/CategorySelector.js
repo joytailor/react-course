@@ -12,11 +12,12 @@ const CategorySelector = ({ options, value, onChange }) => (
     value={value}
     onChange={e => onChange(e.target.value)}
   >
-    {options.map(o => (
-      <option key={o} value={o}>
-        {o}
-      </option>
-    ))}
+    {options &&
+      options.map(o => (
+        <option key={o.id} value={o.name}>
+          {o.name}
+        </option>
+      ))}
   </select>
 );
 

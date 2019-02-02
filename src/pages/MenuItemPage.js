@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
-import * as API from '../services/menu/api';
+import { connect } from 'react-redux';
 
-export default class MenuItemPage extends Component {
-  state = {
-    id: null,
-    name: null,
-    description: null,
-    image: null,
-    price: null,
-    category: null,
-    ingredients: [],
-  };
+import MenuItem from '../components/modules/menu/MenuItem';
+import { menuOperations, menuSelectors } from '../components/features/menu';
 
+class MenuItemPage extends Component {
   componentDidMount() {
-    console.log(this.props.match.params.id);
-    API.getMenuItemById(this.props.match.params.id).then(item =>
-      this.setState({ ...item }),
-    );
+    this.props.fetchItem(this.props.match.params.id);
   }
 
   handleGoBack = () => {
     const { state } = this.props.location;
-    const { category } = this.state;
+    const { category } = this.props.item.category;
     console.log(category);
 
     if (state) {
@@ -36,24 +26,20 @@ export default class MenuItemPage extends Component {
   };
 
   render() {
-    const { id, name, description, image, price, ingredients } = this.state;
-    return (
-      <article key={id}>
-        <button type="button" onClick={this.handleGoBack}>
-          Вернуться к меню
-        </button>
-        <div>
-          <img src={image} alt={name} width="300px" height="300px" />
-          <h1>{name}</h1>
-          <p>Цена:{price} денег</p>
-          <p>{description}</p>
-        </div>
-        <ul>
-          {ingredients.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </article>
-    );
+    const { match } = this.props;
+    return <MenuItem match={match} onGoBack={this.handleGoBack} />;
   }
 }
+
+const mapStateToProps = state => ({
+  item: menuSelectors.getCurrentItem(state),
+});
+
+const mapDispatchToProps = {
+  fetchItem: menuOperations.fetchMenuItemByID,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MenuItemPage);

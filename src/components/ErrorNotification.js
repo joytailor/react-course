@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ErrorNotification = err => (
+const ErrorNotification = ({ err }) => (
   <div>
-    <h1>Errore occured while fetching data</h1>
+    <h1>Error occured while fetching data</h1>
     <p>Error: {err}</p>
   </div>
 );
