@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 
 import menuReducers from './menu/menuReducers';
 import cartReducers from './cart/cartReducers';

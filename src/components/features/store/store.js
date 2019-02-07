@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import { persistReducer, persistStore } from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
 import rootModule from '../rootModule';
 import { rootPersistConfig } from '../../../configs/sessionConfig';
