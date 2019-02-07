@@ -1,4 +1,6 @@
-const getAllMenuItems = state => state.menu.items;
+const getMenuItemsEntities = state => state.menu.items.entities;
+
+const getMenuItemsIds = state => state.menu.items.ids;
 
 const getCategories = state => state.menu.categories;
 
@@ -8,10 +10,14 @@ const getError = state => state.menu.error;
 
 const getCurrentItem = state => state.menu.currentItem;
 
+const getCategoriedItems = state => state.menu.categoriedItems;
+
 export default {
-  getAllMenuItems,
+  getMenuItemsEntities,
+  getMenuItemsIds,
   getCategories,
   getIsLoading,
   getError,
   getCurrentItem,
+  getCategoriedItems,
 };

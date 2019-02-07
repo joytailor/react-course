@@ -30,6 +30,13 @@
     "jsx-a11y/click-events-have-key-events" : 0 ,
     "jsx-a11y/no-static-element-interactions" : 0,
     "react/destructuring-assignment": 0,
-      "no-param-reassign": [2, {"props": false}]
+    "no-param-reassign": [1, {"props": false}],
+    "prefer-promise-reject-errors": [0, {"allowEmptyReject": true}],
+    "no-shadow" : 0,
+    "prefer-destructuring": 1,
+    "no-unused-vars": 1,
+    "dot-notation": 0,
+    "react/button-has-type": 1,
+    "jsx-a11y/label-has-associated-control": 1
   }
 }

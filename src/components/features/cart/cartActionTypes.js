@@ -1,0 +1,9 @@
+const ADD_TO_CART = 'cart/ADD_TO_CART';
+const REMOVE_FROM_CART = 'cart/REMOVE_FROM_CART';
+const DECREMENT_COUNTER = 'cart/DECREMENT_COUNTER';
+
+export default {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  DECREMENT_COUNTER,
+};

@@ -1,7 +1,7 @@
 export default Object.freeze({
-  AUTH: '/auth',
+  SIGN_IN: '/sign-in',
+  SIGN_UP: '/sign-up',
   MENU: '/menu',
-  MENU_ADD: '/menu/add',
   MENU_ITEM: '/menu/:name/:id',
   ORDER_HISTORY: '/order-history',
   CART: '/cart',
@@ -10,6 +10,5 @@ export default Object.freeze({
   ABOUT: '/about',
   CONTACT: '/contact',
   DELIVERY: '/delivery',
-  FAVOURITES: '/favourites',
   ACCOUNT: '/account',
 });

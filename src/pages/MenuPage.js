@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 
-import MenuGrid from '../components/modules/menu/MenuGrid';
+import MenuGrid from '../components/modules/menu/MenuGrid/MenuGrid';
 import Loading from '../components/Loading';
 import CategorySelector from '../components/modules/menu/CategorySelector';
 import ErrorNotification from '../components/ErrorNotification';
@@ -16,6 +16,7 @@ class MenuPage extends Component {
   componentDidMount() {
     this.props.fetchCategories();
     this.handleDefaultCategory();
+    this.props.fetchMenuItems();
   }
 
   componentDidUpdate(prevState) {
@@ -48,21 +49,21 @@ class MenuPage extends Component {
   }
 
   render() {
-    const { items, isLoading, errorStatus } = this.props;
+    const { categoriedItems, isLoading, errorStatus } = this.props;
     const { match } = this.props;
     return (
       <div>
         {errorStatus !== null && <ErrorNotification err={errorStatus} />}
         {isLoading && <Loading />}
         <CategorySelector onChange={this.handleCategoryChange} />
-        <MenuGrid items={items} match={match} />
+        <MenuGrid items={categoriedItems} match={match} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  items: menuSelectors.getAllMenuItems(state),
+  categoriedItems: menuSelectors.getCategoriedItems(state),
   categories: menuSelectors.getCategories(state),
   isLoading: menuSelectors.getIsLoading(state),
   errorStatus: menuSelectors.getError(state),

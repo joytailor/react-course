@@ -38,7 +38,7 @@ function loadingReducer(state = false, { type }) {
   switch (type) {
     case types.FETCH_REQUEST:
       return true;
-
+    case types.FETCH_ITEMS_WITH_CATEGORY_SUCCESS:
     case types.FETCH_SUCCESS:
     case types.FETCH_ERROR:
       return false;
@@ -61,10 +61,21 @@ function errorReducer(state = null, { type, payload }) {
   }
 }
 
+function categoriedItemsReducer(state = null, { type, payload }) {
+  switch (type) {
+    case types.FETCH_ITEMS_WITH_CATEGORY_SUCCESS:
+      return payload;
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   items: itemsReducer,
   categories: categoriesReducer,
   currentItem: currentItemReducer,
   loading: loadingReducer,
   error: errorReducer,
+  categoriedItems: categoriedItemsReducer,
 });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import routes from '../configs/routes';
 
@@ -12,8 +13,14 @@ import DeliveryPage from '../pages/DeliveryPage';
 import AccountPage from '../pages/AccountPage';
 import OrderHistoryPage from '../pages/OrderHistoryPage';
 import MealPlannerPage from '../pages/MealPlannerPage';
+import Cart from './modules/cart';
+import SignInPage from '../pages/SignInPage';
+import SignUpPage from '../pages/SignUpPage';
+import ProtectedRoute from './ProtectedRoute';
 
-export default class App extends Component {
+import * as sessionOperations from './features/session/sessionOperations';
+
+class App extends Component {
   render() {
     return (
       <div>
@@ -24,12 +31,36 @@ export default class App extends Component {
           <Route path={routes.ABOUT} component={AboutPage} />
           <Route path={routes.CONTACT} component={ContactPage} />
           <Route path={routes.DELIVERY} component={DeliveryPage} />
-          <Route path={routes.ACCOUNT} component={AccountPage} />
-          <Route path={routes.ORDER_HISTORY} component={OrderHistoryPage} />
-          <Route path={routes.PLANNER} component={MealPlannerPage} />
-          <Redirect to="/account" />
+          <ProtectedRoute
+            path={routes.ACCOUNT}
+            redirectTo={routes.SIGN_IN}
+            component={AccountPage}
+          />
+          <ProtectedRoute
+            path={routes.ORDER_HISTORY}
+            redirectTo={routes.SIGN_IN}
+            component={OrderHistoryPage}
+          />
+          <ProtectedRoute
+            path={routes.PLANNER}
+            redirectTo={routes.SIGN_IN}
+            component={MealPlannerPage}
+          />
+          <ProtectedRoute
+            redirectTo={routes.SIGN_IN}
+            path={routes.CART}
+            component={Cart}
+          />
+          <Route path={routes.SIGN_IN} component={SignInPage} />
+          <Route path={routes.SIGN_UP} component={SignUpPage} />
+          <Redirect to="/about" />
         </Switch>
       </div>
     );
   }
 }
+
+export default connect(
+  null,
+  { refreshCurrentUser: sessionOperations.refreshCurrentUser },
+)(App);

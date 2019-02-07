@@ -3,6 +3,7 @@ import Logo from './modules/header/Logo';
 import AppNav from './modules/header/AppNav';
 import UserMenu from './modules/header/UserMenu';
 import appLogo from './modules/header/logo.png';
+import CartIcon from './modules/cart/CartIcon';
 
 const AppHeader = () => (
   <header className="Header">
@@ -15,6 +16,7 @@ const AppHeader = () => (
     <div className="Header__usermenu">
       <UserMenu />
     </div>
+    <CartIcon />
   </header>
 );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MenuItem = ({ item, onGoBack }) => (
+const MenuItem = ({ item, onGoBack, addToCart }) => (
   <article key={item.id}>
     <button type="button" onClick={onGoBack}>
       Вернуться к меню
@@ -17,6 +17,9 @@ const MenuItem = ({ item, onGoBack }) => (
           <li key={ingridient}>{ingridient}</li>
         ))}
     </ul>
+    <button type="button" onClick={() => addToCart(item.id)}>
+      Добавить в корзину
+    </button>
   </article>
 );
 

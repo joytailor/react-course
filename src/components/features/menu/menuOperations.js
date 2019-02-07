@@ -38,7 +38,7 @@ const fetchMenuItemsWithCategory = category => async dispatch => {
   dispatch(actions.fetchRequest());
   try {
     const response = await API.getMenuItemsWithCategory(category);
-    dispatch(actions.fetchMenuItemsSuccess(response));
+    dispatch(actions.fetchMenuItemsWithCategorySuccess(response));
   } catch (error) {
     dispatch(actions.fetchError(error.message));
   }
