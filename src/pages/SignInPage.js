@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as selectors from '../components/features/session/sessionSelectors';
 import SignInForm from '../components/modules/auth/SignInForm';
+import ErrorNotification from '../components/ErrorNotification';
+import WithAuth from '../components/hocs/withAuth';
+
+const mapStateToProps = state => ({
+  isAuthenticated: selectors.isAuthenticated(state),
+  error: selectors.getError(state),
+});
 
 class SignInPage extends Component {
-  componentDidUpdate() {
-    if (this.props.isAuthenticated) {
-      const { from } = this.props.location.state || { from: { pathname: '/' } };
-
-      this.props.history.push(from);
-    }
-  }
-
   render() {
     return (
       <div>
@@ -19,11 +18,12 @@ class SignInPage extends Component {
           Please enter your credentials
         </h1>
         <SignInForm />
+        {this.props.error && (
+          <ErrorNotification err="Пользоваетель с такими данными не найден, пожалуйста попробуйте снова" />
+        )}
       </div>
     );
   }
 }
 
-export default connect(state => ({
-  isAuthenticated: selectors.isAuthenticated(state),
-}))(SignInPage);
+export default connect(mapStateToProps)(WithAuth(SignInPage));

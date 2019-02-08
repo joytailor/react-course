@@ -11,7 +11,7 @@ export const signInSuccess = data => ({
 
 export const signInError = error => ({
   type: types.SIGN_IN_ERROR,
-  payload: { error },
+  payload: error,
 });
 
 export const signUpRequest = () => ({
@@ -25,9 +25,7 @@ export const signUpSuccess = data => ({
 
 export const signUpError = error => ({
   type: types.SIGN_UP_ERROR,
-  payload: {
-    error,
-  },
+  payload: error,
 });
 
 export const signOutRequest = () => ({
@@ -36,6 +34,10 @@ export const signOutRequest = () => ({
 
 export const signOutSuccess = () => ({
   type: types.SIGN_OUT_SUCCESS,
+});
+
+export const signOutError = () => ({
+  type: types.SIGN_OUT_ERROR,
 });
 
 export const refreshUserStart = () => ({

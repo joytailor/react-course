@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import SignUpForm from '../components/modules/auth/SignUpForm';
+import ErrorNotification from '../components/ErrorNotification';
+import WithAuth from '../components/hocs/withAuth';
 
-export default class SignUpPage extends Component {
+class SignUpPage extends Component {
   render() {
     return (
       <div>
@@ -9,7 +11,12 @@ export default class SignUpPage extends Component {
           Create your acccount for free
         </h1>
         <SignUpForm />
+        {this.props.error && (
+          <ErrorNotification err="Возникла ошибка при попытке регистрации, пожалуйста попробуйте снова" />
+        )}
       </div>
     );
   }
 }
+
+export default WithAuth(SignUpPage);

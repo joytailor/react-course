@@ -14,8 +14,6 @@ const persistedReducer = persistReducer(rootPersistConfig, rootModule);
 const middlewares = applyMiddleware(logger, thunk);
 const enhancer = composeWithDevTools(middlewares);
 
-const store = createStore(persistedReducer, enhancer);
+export const store = createStore(persistedReducer, enhancer);
 
-const persistor = persistStore(store);
-
-export default { persistor };
+export const persistor = persistStore(store);

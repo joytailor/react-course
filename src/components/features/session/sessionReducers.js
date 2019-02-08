@@ -48,4 +48,16 @@ const token = (state = null, { type, payload }) => {
   }
 };
 
-export default combineReducers({ user, isAuthenticated, token });
+const error = (state = null, { type, payload }) => {
+  switch (type) {
+    case types.SIGN_UP_ERROR:
+    case types.SIGN_IN_ERROR:
+    case types.SIGN_OUT_ERROR:
+      return payload;
+
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ user, isAuthenticated, token, error });

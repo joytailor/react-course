@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import routes from '../configs/routes';
 
-import AppHeader from './AppHeader';
+import AppHeader from './AppHeader/AppHeaderContainer';
 import MenuPage from '../pages/MenuPage';
 import MenuItemPage from '../pages/MenuItemPage';
 import AboutPage from '../pages/AboutPage';
@@ -19,8 +19,19 @@ import SignUpPage from '../pages/SignUpPage';
 import ProtectedRoute from './ProtectedRoute';
 
 import * as sessionOperations from './features/session/sessionOperations';
+import menuOperations from './features/menu/menuOperations';
+
+const mapDispatchToProps = {
+  refreshCurrentUser: sessionOperations.refreshCurrentUser,
+  fetchMenuItems: menuOperations.fetchMenuItems,
+};
 
 class App extends Component {
+  componentDidMount() {
+    this.props.refreshCurrentUser();
+    this.props.fetchMenuItems();
+  }
+
   render() {
     return (
       <div>
@@ -62,5 +73,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { refreshCurrentUser: sessionOperations.refreshCurrentUser },
+  mapDispatchToProps,
 )(App);
