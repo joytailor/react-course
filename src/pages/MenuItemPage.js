@@ -12,7 +12,6 @@ class MenuItemPage extends Component {
   handleGoBack = () => {
     const { state } = this.props.location;
     const { category } = this.props.item.category;
-    console.log(category);
 
     if (state) {
       this.props.history.push(state.from);

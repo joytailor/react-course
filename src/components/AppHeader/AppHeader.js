@@ -6,7 +6,7 @@ import appLogo from '../modules/header/logo.png';
 import CartIcon from '../modules/cart/CartIcon';
 import Auth from '../modules/header/Auth';
 
-const AppHeader = ({ isAuthenticated }) => (
+const AppHeader = ({ isAuthenticated, history }) => (
   <header className="Header">
     <div className="Header__logo">
       <Logo imgUrl={appLogo} />
@@ -25,7 +25,7 @@ const AppHeader = ({ isAuthenticated }) => (
       </>
     )}
     <div className="Header__auth">
-      <Auth />
+      <Auth history={history} />
     </div>
   </header>
 );

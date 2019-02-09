@@ -35,7 +35,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppHeader />
+        <AppHeader history={this.props.history} />
         <Switch>
           <Route exact path={routes.MENU} component={MenuPage} />
           <Route path={routes.MENU_ITEM} component={MenuItemPage} />

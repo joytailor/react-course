@@ -11,14 +11,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onSignOut: operations.signOut(),
+  onSignOut: operations.signOut,
 };
 
 class Auth extends Component {
-  handleSignOut() {
+  handleSignOut = () => {
     this.props.onSignOut();
     this.props.history.push(routes.SIGN_IN);
-  }
+  };
 
   render() {
     return (
